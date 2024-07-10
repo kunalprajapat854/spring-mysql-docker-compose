@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Spring-boot-mysql-docker-compose
+  datasource:
+    url: jdbc:mysql://localhost:3306/practice
+    password: Kunal@123
+    username: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+server.port: 9090
