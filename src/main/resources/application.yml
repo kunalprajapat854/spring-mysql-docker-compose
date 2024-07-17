@@ -4,9 +4,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     
-    url: jdbc:mysql://mysqldb:3306/practice
-    password: root
-    username: root
+    url:  ${SPRING_DATASOURCE_URL}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: ${SPRING_DATASOURCE_USERNAME}
   jpa:
     show-sql: true
     hibernate:

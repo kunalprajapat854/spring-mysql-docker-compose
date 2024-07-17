@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM openjdk:17-jdk-alpine
 
 MAINTAINER Kunal <kunalprajapat221@gmail.com>
 

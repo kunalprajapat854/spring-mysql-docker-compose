@@ -1,31 +1,39 @@
-version: "3"
+version: '3.8'
+
 services:
-  applications:
-     image: java-mysql-app
-     ports:
-     - 8080:9090
-     
-     networks:
-     - springboot-network
-     depends_on:
-     - mysqldb
-      
-     volumes:
-     - data/spring-boot
-     
-  mysqldb:
-     image: mysql:5.7
-     networks:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    networks:
+      - springboot-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot-app
+    ports:
+      - "8080:9090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydatabase
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - mysql
+    networks:
       - springboot-network
       
-     volumes:
-     - data/mysql
-     
-     environment:
-     - MYSQL_ROOT_PASSWORD=root
-     - MYSQL_ROOT_DATABASE=practice
-     
+
+volumes:
+  mysql-data:
 networks:
-   springboot-network:     
-     
-     
+  springboot-network:
