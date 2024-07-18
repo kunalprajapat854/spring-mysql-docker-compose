@@ -1,39 +1,24 @@
-version: '3.8'
-
+version: "3"
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    ports:
-      - "3306:3306"
-    networks:
-      - springboot-network
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: springboot-app
+  application:
+    image: spring-boot-mysql-app
     ports:
       - "9090:9090"
-    environment:
-     - SPRING_DATASOURCE_URL = jdbc:mysql://mysql:3306/mydatabase
-     - SPRING_DATASOURCE_USERNAME = user
-     - SPRING_DATASOURCE_PASSWORD = password
-    depends_on:
-      - mysql
     networks:
-      - springboot-network
-      
-
-volumes:
-  mysql-data:
+      - springboot-db-net
+    depends_on:
+      - mysqldb
+    volumes:
+      - /data/springboot-app
+    
+  mysqldb:
+    image: mysql:5.7
+    networks:
+      - springboot-db-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sbms
+    volumes:
+      - /data/mysql
 networks:
-  springboot-network:
+  springboot-db-net:
