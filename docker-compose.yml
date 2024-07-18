@@ -5,7 +5,7 @@ services:
     image: mysql:8.0
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: user
       MYSQL_PASSWORD: password
@@ -22,11 +22,11 @@ services:
       dockerfile: Dockerfile
     container_name: springboot-app
     ports:
-      - "8080:9090"
+      - "9090:9090"
     environment:
      - SPRING_DATASOURCE_URL = jdbc:mysql://mysql:3306/mydatabase
      - SPRING_DATASOURCE_USERNAME = user
-     -  SPRING_DATASOURCE_PASSWORD = password
+     - SPRING_DATASOURCE_PASSWORD = password
     depends_on:
       - mysql
     networks:
