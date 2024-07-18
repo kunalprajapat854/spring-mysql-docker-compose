@@ -1,9 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysqldb:3306/sbms
+    url: jdbc:mysql://localhost:3306/basics?allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: Kunal@123
+  initialization-mode: always
+  
+  
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,3 +14,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+  sql:
+    init:
+      mode: always
